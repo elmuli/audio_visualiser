@@ -18,18 +18,16 @@ fn main() -> std::io::Result<()> {
 
     audio::read_audio(&mut app);
 
-    /*
     ratatui::run(|mut terminal| {
         loop {
-            terminal.draw(|frame| frame.render_widget("Hello World!", frame.area()))?;
+            let text = format!("{:?}", app.buf);
+            terminal.draw(|frame| frame.render_widget(text, frame.area()))?;
             handle_events(&mut app);
             if app.should_quit {
                 break Ok(());
             }
         }
-    })*/
-
-    Ok(())
+    })
 }
 
 fn handle_events(app: &mut app::App) -> std::io::Result<bool>{
