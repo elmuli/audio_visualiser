@@ -1,4 +1,4 @@
-use crossterm::event::{self, Event, KeyCode, KeyEvent, KeyEventKind};
+use crossterm::event::{self, Event, KeyCode, KeyEventKind};
 
 mod app;
 mod audio;
@@ -13,9 +13,9 @@ fn main() -> std::io::Result<()> {
 
     audio::read_audio(&mut app);
 
-    ratatui::run(|mut terminal| {
+    ratatui::run(|terminal| {
         loop {
-            handle_events(&mut app);
+            let _ = handle_events(&mut app);
             terminal.draw(|frame| ui::Render(frame, &mut app))?;
             if app.should_quit {
                 break Ok(());
