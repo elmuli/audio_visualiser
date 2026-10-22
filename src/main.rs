@@ -1,12 +1,8 @@
 use crossterm::event::{self, Event, KeyCode, KeyEvent, KeyEventKind};
 
-#[derive(Default)]
-pub struct App{
-    pub should_quit: bool,
-}
 mod app;
 mod audio;
-
+mod ui;
 
 fn main() -> std::io::Result<()> {
 
@@ -15,14 +11,12 @@ fn main() -> std::io::Result<()> {
         buf: [0i16; 1024],
     };
 
-
     audio::read_audio(&mut app);
 
     ratatui::run(|mut terminal| {
         loop {
-            let text = format!("{:?}", app.buf);
-            terminal.draw(|frame| frame.render_widget(text, frame.area()))?;
             handle_events(&mut app);
+            terminal.draw(|frame| ui::Render(frame, &mut app))?;
             if app.should_quit {
                 break Ok(());
             }
