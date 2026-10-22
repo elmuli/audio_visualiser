@@ -15,8 +15,5 @@ pub fn read_audio(app: &mut app::App){
 
     let io = pcm.io_i16().unwrap();
 
-    for _ in 0..2 * 4410/1024{
-        io.readi(&mut app.buf[..]).unwrap();
-        print!("buf {:?}", app.buf);
-    }
+    io.readi(&mut app.buf[..]).unwrap();
 }

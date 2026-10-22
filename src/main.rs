@@ -8,15 +8,14 @@ fn main() -> std::io::Result<()> {
 
     let mut app = app::App{
         should_quit: false,
-        buf: [0i16; 1024],
+        buf: [0i16; 2048],
     };
 
-    audio::read_audio(&mut app);
 
     ratatui::run(|terminal| {
         loop {
+            terminal.draw(|frame| ui::render(frame, &mut app))?;
             let _ = handle_events(&mut app);
-            terminal.draw(|frame| ui::Render(frame, &mut app))?;
             if app.should_quit {
                 break Ok(());
             }
@@ -24,12 +23,17 @@ fn main() -> std::io::Result<()> {
     })
 }
 
-fn handle_events(app: &mut app::App) -> std::io::Result<bool>{
-    match event::read()? {
-        Event::Key(key) if key.kind == KeyEventKind::Press => match key.code{
-            KeyCode::Char('q') => app.should_quit = true, _ => {}
-        },
-        _ => {}
+fn handle_events(app: &mut app::App) -> std::io::Result<bool> {
+    if event::poll(std::time::Duration::from_millis(0))? {
+        match event::read()? {
+            Event::Key(key) if key.kind == KeyEventKind::Press => {
+                match key.code {
+                    KeyCode::Char('q') => app.should_quit = true,
+                    _ => {}
+                }
+            }
+            _ => {}
+        }
     }
-    Ok(false)
+    Ok(app.should_quit)
 }
