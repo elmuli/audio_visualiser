@@ -1,5 +1,6 @@
 use crossterm::event::{self, Event, KeyCode, KeyEvent, KeyEventKind};
 
+<<<<<<< HEAD
 #[derive(Default)]
 pub struct App{
     pub should_quit: bool,
@@ -38,4 +39,10 @@ fn handle_events(app: &mut app::App) -> std::io::Result<bool>{
         _ => {}
     }
     Ok(false)
+=======
+
+
+fn main() {
+    print!("Hello world");
+>>>>>>> 4e71c79 (test)
 }
