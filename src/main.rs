@@ -24,7 +24,7 @@ fn main() -> std::io::Result<()> {
 }
 
 fn handle_events(app: &mut app::App) -> std::io::Result<bool> {
-    if event::poll(std::time::Duration::from_millis(0))? {
+    if event::poll(std::time::Duration::from_millis(10))? {
         match event::read()? {
             Event::Key(key) if key.kind == KeyEventKind::Press => {
                 match key.code {

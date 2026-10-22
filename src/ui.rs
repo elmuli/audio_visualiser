@@ -27,7 +27,7 @@ pub fn render(frame: &mut Frame, app: &mut app::App){
                     value /= 16;
                     ctx.draw(&Rectangle {
                         x: i as f64,
-                        y: 40.0,
+                        y: 100.0,
                         width: 128.0,
                         height: value as f64,
                         color: Color::Blue,
@@ -38,8 +38,8 @@ pub fn render(frame: &mut Frame, app: &mut app::App){
                 i+=1;
             }
         })
-        .x_bounds([0.0, 2048.0])
-        .y_bounds([0.0, 80.0]), 
+        .x_bounds([0.0, 4048.0])
+        .y_bounds([0.0, 200.0]), 
         visualiser
     );
 }
